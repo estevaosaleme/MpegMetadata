@@ -1,0 +1,230 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" xmlns:cidl="urn:mpeg:mpeg-v:2010:01-CIDL-NS" xmlns:scdv="urn:mpeg:mpeg-v:2010:01-SCDV-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-SCDV-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-6" id="MPEG-V-SCDV.xsd">
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CIDL-NS" schemaLocation="MPEG-V-CIDL.xsd"/>
+	<!-- ################################################ -->
+	<!-- Light Sensor capability type                   -->
+	<!-- ################################################ -->
+	<complexType name="LightSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="Color" type="mpegvct:colorType" minOccurs="0" maxOccurs="unbounded"/>
+					<element name="Location" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Ambient noise Sensor capability type                          -->
+	<!-- ################################################ -->
+	<complexType name="AmbientNoiseSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="Location" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Temperature Sensor capability type               -->
+	<!-- ################################################ -->
+	<complexType name="TemperatureSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="Location" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Humidity Sensor capability type                  -->
+	<!-- ################################################ -->
+	<complexType name="HumiditySensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="Location" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Distance Sensor capability type                    -->
+	<!-- ################################################ -->
+	<complexType name="DistanceSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="Location" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Atmospheric Pressure Sensor capability type       -->
+	<!-- ################################################ -->
+	<complexType name="AtmosphericPressureSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="Location" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Position Sensor capability type                          -->
+	<!-- ################################################ -->
+	<complexType name="PositionSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="Range" type="scdv:RangeType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="RangeType">
+		<sequence>
+			<element name="XminValue" type="float"/>
+			<element name="XmaxValue" type="float"/>
+			<element name="YminValue" type="float"/>
+			<element name="YmaxValue" type="float"/>
+			<element name="ZminValue" type="float"/>
+			<element name="ZmaxValue" type="float"/>
+		</sequence>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Velocity Sensor capability type                  -->
+	<!-- ################################################ -->
+	<complexType name="VelocitySensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Acceleration Sensor capability type                          -->
+	<!-- ################################################ -->
+	<complexType name="AccelerationSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Orientation Sensor capability type               -->
+	<!-- ################################################ -->
+	<complexType name="OrientationSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="OrientationRange" type="scdv:OrientationRangeType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="OrientationRangeType">
+		<sequence>
+			<element name="YawMin" type="float"/>
+			<element name="YawMax" type="float"/>
+			<element name="PitchMin" type="float"/>
+			<element name="PitchMax" type="float"/>
+			<element name="RollMin" type="float"/>
+			<element name="RollMax" type="float"/>
+		</sequence>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Angular Velocity Sensor capability type                    -->
+	<!-- ################################################ -->
+	<complexType name="AngularVelocitySensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Angular Acceleration Sensor capability type                      -->
+	<!-- ################################################ -->
+	<complexType name="AngularAccelerationSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Force Sensor capability type                     -->
+	<!-- ################################################ -->
+	<complexType name="ForceSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Torque Sensor capability type                    -->
+	<!-- ################################################ -->
+	<complexType name="TorqueSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Pressure Sensor capability type                  -->
+	<!-- ################################################ -->
+	<complexType name="PressureSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Motion Sensor capability type                    -->
+	<!-- ################################################ -->
+	<complexType name="MotionSensorCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="PositionCapability" type="scdv:PositionSensorCapabilityType" minOccurs="0"/>
+					<element name="OrientationCapability" type="scdv:OrientationSensorCapabilityType" minOccurs="0"/>
+					<element name="VelocityCapability" type="scdv:VelocitySensorCapabilityType" minOccurs="0"/>
+					<element name="AngularVelocityCapability" type="scdv:AngularVelocitySensorCapabilityType" minOccurs="0"/>
+					<element name="AccelerationCapability" type="scdv:AccelerationSensorCapabilityType" minOccurs="0"/>
+					<element name="AngularAccelerationCapability" type="scdv:AngularAccelerationSensorCapabilityType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Intelligent Camera  CapabilityType              -->
+	<!-- ################################################ -->
+	<complexType name="IntelligentCameraCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensorCapabilityBaseType">
+				<sequence>
+					<element name="MaxBodyFeaturePoint" type="nonNegativeInteger" minOccurs="0"/>
+					<element name="MaxFaceFeaturePoint" type="nonNegativeInteger" minOccurs="0"/>
+					<element name="TrackedFeature" type="scdv:FeatureType" minOccurs="0"/>
+					<element name="TrackedFacialFeaturePoints" type="scdv:FacialFeatureMask" minOccurs="0"/>
+					<element name="TrackedBodyFeaturePoints" type="scdv:BodyFeatureMask" minOccurs="0"/>
+				</sequence>
+				<attribute name="featureTrackingStatus" type="boolean" use="optional" default="false"/>
+				<attribute name="facialExpressionTrackingStatus" type="boolean" use="optional" default="false"/>
+				<attribute name="gestureTrackingStatus" type="boolean" use="optional" default="false"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<simpleType name="FeatureType">
+		<restriction base="string">
+			<enumeration value="face"/>
+			<enumeration value="body"/>
+			<enumeration value="both"/>
+		</restriction>
+	</simpleType>
+	<complexType name="FacialFeatureMask">
+		<sequence>
+			<element name="FaceFeaturePoint" type="boolean" minOccurs="60" maxOccurs="200"/>
+		</sequence>
+	</complexType>
+	<complexType name="BodyFeatureMask">
+		<sequence>
+			<element name="BodyFeaturePoint" type="boolean" minOccurs="60" maxOccurs="200"/>
+		</sequence>
+	</complexType>
+</schema>

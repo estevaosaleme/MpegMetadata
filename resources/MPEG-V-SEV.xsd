@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sedl="urn:mpeg:mpeg-v:2010:01-SEDL-NS" xmlns:sev="urn:mpeg:mpeg-v:2010:01-SEV-NS" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" targetNamespace="urn:mpeg:mpeg-v:2010:01-SEV-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-3" id="MPEG-V-SEV.xsd">
+	<import namespace="urn:mpeg:mpeg-v:2010:01-SEDL-NS" schemaLocation="MPEG-V-SEDL.xsd"/>
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<!-- ################################################ -->
+	<!--  SEV Light type                                  -->
+	<!-- ################################################ -->
+	<complexType name="LightType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<attribute name="color" type="sev:colorType" use="optional"/>
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<simpleType name="colorType">
+		<union memberTypes="mpeg7:termReferenceType sev:colorRGBType"/>
+	</simpleType>
+	<simpleType name="colorRGBType">
+		<restriction base="NMTOKEN">
+			<whiteSpace value="collapse"/>
+			<pattern value="#[0-9A-Fa-f]{6}"/>
+		</restriction>
+	</simpleType>
+	<!-- ################################################ -->
+	<!--  SEV Flash type                                  -->
+	<!-- ################################################ -->
+	<complexType name="FlashType">
+		<complexContent>
+			<extension base="sev:LightType">
+				<attribute name="frequency" type="positiveInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  SEV Temperature type                            -->
+	<!-- ################################################ -->
+	<complexType name="TemperatureType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  SEV Wind type                                   -->
+	<!-- ################################################ -->
+	<complexType name="WindType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  SEV Vibration type                              -->
+	<!-- ################################################ -->
+	<complexType name="VibrationType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Spraying type                     -->
+	<!-- ################################################ -->
+	<complexType name="SprayingType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional"/>
+				<attribute name="sprayingType" type="mpeg7:termReferenceType"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Scent type                        -->
+	<!-- ################################################ -->
+	<complexType name="ScentType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<attribute name="scent" type="mpeg7:termReferenceType" use="optional"/>
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Fog type                          -->
+	<!-- ################################################ -->
+	<complexType name="FogType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Color Correction type             -->
+	<!-- ################################################ -->
+	<complexType name="ColorCorrectionType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<choice minOccurs="0">
+					<element name="SpatioTemporalLocator" type="mpeg7:SpatioTemporalLocatorType"/>
+					<element name="SpatioTemporalMask" type="mpeg7:SpatioTemporalMaskType"/>
+				</choice>
+				<attribute name="intensity-value" type="sedl:intensityValueType" use="optional"/>
+				<attribute name="intensity-range" type="sedl:intensityRangeType" use="optional" fixed="0 1"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Rigid Body Motion type            -->
+	<!-- ################################################ -->
+	<complexType name="RigidBodyMotionType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<sequence>
+					<element name="MoveToward" type="sev:MoveTowardType" minOccurs="0"/>
+					<element name="TrajectorySamples" type="mpeg7:FloatMatrixType" minOccurs="0" maxOccurs="unbounded"/>
+					<element name="Incline" type="sev:InclineType" minOccurs="0"/>
+					<element name="Shake" type="sev:ShakeType" minOccurs="0"/>
+					<element name="Wave" type="sev:WaveType" minOccurs="0"/>
+					<element name="Spin" type="sev:SpinType" minOccurs="0"/>
+					<element name="Turn" type="sev:TurnType" minOccurs="0"/>
+					<element name="Collide" type="sev:CollideType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Move Toward type                  -->
+	<!-- ################################################ -->
+	<complexType name="MoveTowardType">
+		<attribute name="speed" type="float" use="optional"/>
+		<attribute name="acceleration" type="float" use="optional"/>
+		<attribute name="directionV" type="sev:MoveTowardAngleType" use="optional" default="0"/>
+		<attribute name="directionH" type="sev:MoveTowardAngleType" use="optional" default="0"/>
+		<attribute name="distance" type="float" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Incline type                      -->
+	<!-- ################################################ -->
+	<complexType name="InclineType">
+		<attribute name="pitchSpeed" type="float" use="optional"/>
+		<attribute name="pitchAcceleration" type="float" use="optional"/>
+		<attribute name="rollSpeed" type="float" use="optional"/>
+		<attribute name="rollAcceleration" type="float" use="optional"/>
+		<attribute name="yawSpeed" type="float" use="optional"/>
+		<attribute name="yawAcceleration" type="float" use="optional"/>
+		<attribute name="pitch" type="sev:InclineAngleType" use="optional" default="0"/>
+		<attribute name="roll" type="sev:InclineAngleType" use="optional" default="0"/>
+		<attribute name="yaw" type="sev:InclineAngleType" use="optional" default="0"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Shake type                        -->
+	<!-- ################################################ -->
+	<complexType name="ShakeType">
+		<attribute name="direction" type="mpeg7:termReferenceType" use="optional"/>
+		<attribute name="count" type="float" use="optional"/>
+		<attribute name="distance" type="float" use="optional"/>
+		<attribute name="interval" type="positiveInteger" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Wave type                         -->
+	<!-- ################################################ -->
+	<complexType name="WaveType">
+		<attribute name="direction" type="mpeg7:termReferenceType" use="optional"/>
+		<attribute name="startDirection" type="mpeg7:termReferenceType" use="optional"/>
+		<attribute name="count" type="float" use="optional"/>
+		<attribute name="distance" type="float" use="optional"/>
+		<attribute name="interval" type="positiveInteger" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Spin type                         -->
+	<!-- ################################################ -->
+	<complexType name="SpinType">
+		<attribute name="direction" type="mpeg7:termReferenceType" use="optional"/>
+		<attribute name="count" type="float" use="optional"/>
+		<attribute name="interval" type="positiveInteger" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Turn type                         -->
+	<!-- ################################################ -->
+	<complexType name="TurnType">
+		<attribute name="direction" type="sev:TurnAngleType" use="optional"/>
+		<attribute name="speed" type="float" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Collide type                      -->
+	<!-- ################################################ -->
+	<complexType name="CollideType">
+		<attribute name="directionH" type="sev:MoveTowardAngleType" use="optional" default="0"/>
+		<attribute name="directionV" type="sev:MoveTowardAngleType" use="optional" default="0"/>
+		<attribute name="speed" type="float" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Rigid Body Motion base type       -->
+	<!-- ################################################ -->
+	<simpleType name="TurnAngleType">
+		<restriction base="integer">
+			<minInclusive value="-180"/>
+			<maxInclusive value="180"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="InclineAngleType">
+		<restriction base="integer">
+			<minInclusive value="-359"/>
+			<maxInclusive value="359"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="MoveTowardAngleType">
+		<restriction base="integer">
+			<minInclusive value="0"/>
+			<maxInclusive value="359"/>
+		</restriction>
+	</simpleType>
+	<!-- ################################################ -->
+	<!--  SEV Passive Kinesthetic Motion type             -->
+	<!-- ################################################ -->
+	<complexType name="PassiveKinestheticMotionType">
+		<complexContent>
+			<extension base="sev:RigidBodyMotionType">
+				<attribute name="timeSamples" type="positiveInteger" use="required"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  SEV Passive Kinesthetic Force type              -->
+	<!-- ################################################ -->
+	<complexType name="PassiveKinestheticForceType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<sequence>
+					<element name="PassiveKinestheticForce" type="mpeg7:FloatMatrixType"/>
+				</sequence>
+				<attribute name="timeSamples" type="positiveInteger" use="required"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  SEV Active  Kinesthetic type                    -->
+	<!-- ################################################ -->
+	<complexType name="ActiveKinestheticType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<sequence>
+					<element name="ActiveKinesthetic" type="sev:ActiveKinestheticForceType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ActiveKinestheticForceType">
+		<attribute name="fx" type="float" use="optional"/>
+		<attribute name="fy" type="float" use="optional"/>
+		<attribute name="fz" type="float" use="optional"/>
+		<attribute name="tx" type="float" use="optional"/>
+		<attribute name="ty" type="float" use="optional"/>
+		<attribute name="tz" type="float" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  SEV Tactile type                                -->
+	<!-- ################################################ -->
+	<complexType name="TactileType">
+		<complexContent>
+			<extension base="sedl:EffectBaseType">
+				<sequence>
+					<choice>
+						<element name="ArrayIntensity" type="mpeg7:FloatMatrixType"/>
+						<element name="TactileResource" type="sev:TactileResourceType"/>
+					</choice>
+				</sequence>
+				<attribute name="tactileEffect" type="mpeg7:termReferenceType" use="required"/>
+				<attribute name="timeSamples" type="positiveInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  SEV TactileResource type                        -->
+	<!-- ################################################ -->
+	<complexType name="TactileResourceType">
+		<attribute name="type" type="string" use="required"/>
+		<attribute name="ref" type="anyURI" use="required"/>
+	</complexType>
+</schema>

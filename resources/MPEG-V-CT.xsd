@@ -1,0 +1,100 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-CT-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-6" id="MPEG-V-CT.xsd">
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<!-- ########################################################### -->
+	<!-- Basic Datatypes                                             -->
+	<!-- ########################################################### -->
+	<!-- unit types                                     -->
+	<simpleType name="unitType">
+		<restriction base="mpeg7:termReferenceType"/>
+	</simpleType>
+	<!-- Inclination Degree Type                           -->
+	<simpleType name="InclineAngleType">
+		<restriction base="integer">
+			<minInclusive value="-360"/>
+			<maxInclusive value="360"/>
+		</restriction>
+	</simpleType>
+	<complexType name="Float3DVectorType">
+		<sequence>
+			<element name="X" type="float"/>
+			<element name="Y" type="float"/>
+			<element name="Z" type="float"/>
+		</sequence>
+	</complexType>
+	<!-- ########################################################### -->
+	<!-- Color Related Datatypes                              -->
+	<!-- ########################################################### -->
+	<!-- colorType for Lighting Device type         -->
+	<simpleType name="colorType">
+		<union memberTypes="mpeg7:termReferenceType mpegvct:colorRGBType"/>
+	</simpleType>
+	<!--  colorRGB Type for Lighting Device type     -->
+	<simpleType name="colorRGBType">
+		<restriction base="NMTOKEN">
+			<whiteSpace value="collapse"/>
+			<pattern value="#[0-9A-Fa-f]{6}"/>
+		</restriction>
+	</simpleType>
+	<complexType name="ToneReproductionCurvesType">
+		<sequence maxOccurs="256">
+			<element name="DAC_Value" type="mpeg7:unsigned8"/>
+			<element name="RGB_Value" type="mpeg7:doubleVector"/>
+		</sequence>
+	</complexType>
+	<complexType name="ConversionLUTType">
+		<sequence>
+			<element name="RGB2XYZ_LUT" type="mpeg7:DoubleMatrixType"/>
+			<element name="RGBScalar_Max" type="mpeg7:doubleVector"/>
+			<element name="Offset_Value" type="mpeg7:doubleVector"/>
+			<element name="Gain_Offset_Gamma" type="mpeg7:DoubleMatrixType"/>
+			<element name="InverseLUT" type="mpeg7:DoubleMatrixType"/>
+		</sequence>
+	</complexType>
+	<complexType name="IlluminantType">
+		<choice>
+			<sequence>
+				<element name="xy_Value" type="mpegvct:ChromaticityType"/>
+				<element name="Y_Value" type="mpeg7:unsigned7"/>
+			</sequence>
+			<element name="Correlated_CT" type="mpeg7:unsigned8"/>
+		</choice>
+	</complexType>
+	<complexType name="InputDeviceColorGamutType">
+		<sequence>
+			<element name="IDCG_Type" type="string"/>
+			<element name="IDCG_Value" type="mpeg7:DoubleMatrixType"/>
+		</sequence>
+	</complexType>
+	<complexType name="ChromaticityType">
+		<attribute name="x" type="mpeg7:zeroToOneType" use="required"/>
+		<attribute name="y" type="mpeg7:zeroToOneType" use="required"/>
+	</complexType>
+	<!-- ########################################################### -->
+	<!-- Time Stamp Type                              -->
+	<!-- ########################################################### -->
+	<complexType name="TimeStampType" abstract="true"/>
+	<complexType name="AbsoluteTimeType">
+		<complexContent>
+			<extension base="mpegvct:TimeStampType">
+				<attribute name="absTimeScheme" type="string" use="optional"/>
+				<attribute name="absTime" type="string"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ClockTickTimeType">
+		<complexContent>
+			<extension base="mpegvct:TimeStampType">
+				<attribute name="timeScale" type="unsignedInt" use="optional"/>
+				<attribute name="pts" type="nonNegativeInteger"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ClockTickTimeDeltaType">
+		<complexContent>
+			<extension base="mpegvct:TimeStampType">
+				<attribute name="timeScale" type="unsignedInt" use="optional"/>
+				<attribute name="ptsDelta" type="unsignedInt"/>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

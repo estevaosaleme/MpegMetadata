@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Digital Item Adaptation ISO/IEC 21000-7 Second Edition -->
+<!-- Schema for Conversion Descriptions -->
+<schema version="ISO/IEC 21000-7 2nd" id="ConvD-2nd.xsd" targetNamespace="urn:mpeg:mpeg21:2003:01-DIA-NS" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:dia="urn:mpeg:mpeg21:2003:01-DIA-NS" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <include schemaLocation="DIA-2nd.xsd"/>
+  <!-- ######################################################## -->
+  <!-- Definition of the BaseParameterType                      -->
+  <!-- ######################################################## -->
+  <complexType name="BaseParameterType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <attribute name="name" type="QName" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ######################################################## -->
+  <!-- Definition of the ConstantType                           -->
+  <!-- ######################################################## -->
+  <complexType name="ConstantType">
+    <complexContent>
+      <extension base="dia:BaseParameterType">
+        <sequence>
+          <element name="Value" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of ConversionDescriptionBaseType		-->
+  <!-- ################################################	-->
+  <complexType name="ConversionDescriptionBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIADescriptionType">
+        <sequence>
+          <element name="ConversionActUri">
+            <complexType>
+              <attribute name="uri" type="anyURI" use="required"/>
+            </complexType>
+          </element>
+          <element name="Parameter" type="dia:BaseParameterType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>

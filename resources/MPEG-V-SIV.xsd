@@ -1,0 +1,219 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:siv="urn:mpeg:mpeg-v:2010:01-SIV-NS" xmlns:iidl="urn:mpeg:mpeg-v:2010:01-IIDL-NS" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-SIV-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-5" id="MPEG-V-SIV.xsd">
+	<import namespace="urn:mpeg:mpeg-v:2010:01-IIDL-NS" schemaLocation="MPEG-V-IIDL.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<!--#################################### -->
+	<!--Definition of Light Sensor type      -->
+	<!--#################################### -->
+	<complexType name="LightSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<attribute name="value" type="float" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="color" type="mpegvct:colorType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Ambient Noise Sensor type  -->
+	<!--#################################### -->
+	<complexType name="AmbientNoiseSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<attribute name="lifespan" type="float" use="optional"/>
+				<attribute name="value" type="float" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Temperature Sensor type  -->
+	<!--#################################### -->
+	<complexType name="TemperatureSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<attribute name="value" type="float" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Humidity Sensor type  -->
+	<!--#################################### -->
+	<complexType name="HumiditySensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<attribute name="value" type="float" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Distance Sensor type  -->
+	<!--#################################### -->
+	<complexType name="DistanceSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<attribute name="value" type="float" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Atmospheric pressure Sensor type  -->
+	<!--#################################### -->
+	<complexType name="AtmosphericPressureSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<attribute name="value" type="float" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Position Sensor type  -->
+	<!--#################################### -->
+	<complexType name="PositionSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="Position" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Velocity Sensor type  -->
+	<!--#################################### -->
+	<complexType name="VelocitySensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="Velocity" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Acceleration Sensor type  -->
+	<!--#################################### -->
+	<complexType name="AccelerationSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="Acceleration" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Orientation Sensor type  -->
+	<!--#################################### -->
+	<complexType name="OrientationSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="Orientation" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Angular Velocity Sensor type  -->
+	<!--#################################### -->
+	<complexType name="AngularVelocitySensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="AngularVelocity" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--############################################### -->
+	<!--Definition of Angular Acceleration Sensor type  -->
+	<!--############################################### -->
+	<complexType name="AngularAccelerationSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="AngularAcceleration" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Force Sensor type      -->
+	<!--#################################### -->
+	<complexType name="ForceSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="Force" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Torque Sensor type     -->
+	<!--#################################### -->
+	<complexType name="TorqueSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="Torque" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!--#################################### -->
+	<!--Definition of Pressure Sensor type  -->
+	<!--#################################### -->
+	<complexType name="PressureSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<attribute name="value" type="float" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Motion Sensor Type            	-->
+	<!-- ################################################ -->
+	<complexType name="MotionSensorType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="Position" type="siv:PositionSensorType" minOccurs="0"/>
+					<element name="Orientation" type="siv:OrientationSensorType" minOccurs="0"/>
+					<element name="Velocity" type="siv:VelocitySensorType" minOccurs="0"/>
+					<element name="AngularVelocity" type="siv:AngularVelocitySensorType" minOccurs="0"/>
+					<element name="Acceleration" type="siv:AccelerationSensorType" minOccurs="0"/>
+					<element name="AngularAcceleration" type="siv:AngularAccelerationSensorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Intelligent Camera Type            	-->
+	<!-- ################################################ -->
+	<complexType name="IntelligentCameraType">
+		<complexContent>
+			<extension base="iidl:SensedInfoBaseType">
+				<sequence>
+					<element name="FacialAnimationID" type="anyURI" minOccurs="0"/>
+					<element name="BodyAnimationID" type="anyURI" minOccurs="0"/>
+					<element name="FaceFeature" type="mpegvct:Float3DVectorType" minOccurs="0" maxOccurs="255"/>
+					<element name="BodyFeature" type="mpegvct:Float3DVectorType" minOccurs="0" maxOccurs="255"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

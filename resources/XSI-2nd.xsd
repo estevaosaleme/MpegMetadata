@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Digital Item Adaptation ISO/IEC 21000-7 Second Edition -->
+<!-- Schema for XML Streaming Instructions -->
+<schema version="ISO/IEC 21000-7 2nd" id="XSI-2nd.xsd" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:si="urn:mpeg:mpeg21:2003:01-DIA-XSI-NS" targetNamespace="urn:mpeg:mpeg21:2003:01-DIA-XSI-NS" elementFormDefault="qualified">
+  <annotation>
+    <documentation>
+      Declaration of attributes used for XML streaming instructions
+    </documentation>
+  </annotation>
+  <!-- The following attribute defines the process units -->
+  <attribute name="anchorElement" type="boolean"/>
+  <!-- The following attribute indicates that the PU shall be encoded as Random Access Point -->
+  <attribute name="encodeAsRAP" type="boolean"/>
+  <attribute name="puMode" type="si:puModeType"/>
+  <simpleType name="puModeType">
+    <restriction base="string">
+      <enumeration value="self"/>
+      <enumeration value="ancestors"/>
+      <enumeration value="descendants"/>
+      <enumeration value="ancestorsDescendants"/>
+      <enumeration value="preceding"/>
+      <enumeration value="precedingSiblings"/>
+      <enumeration value="sequential"/>
+    </restriction>
+  </simpleType>
+  <!-- The following attributes define the time properties -->
+  <attribute name="timeScale" type="unsignedInt"/>
+  <attribute name="ptsDelta" type="unsignedInt"/>
+  <attribute name="absTimeScheme" type="string"/>
+  <attribute name="absTime" type="string"/>
+  <attribute name="pts" type="nonNegativeInteger"/>
+</schema>

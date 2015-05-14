@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sedl="urn:mpeg:mpeg-v:2010:01-SEDL-NS" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:si="urn:mpeg:mpeg21:2003:01-DIA-XSI-NS" xmlns:dia="urn:mpeg:mpeg21:2003:01-DIA-NS" xmlns:ct="urn:mpeg:mpeg-v:2010:01-CT-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-SEDL-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-3" id="MPEG-V-SEDL.xsd">
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<import namespace="urn:mpeg:mpeg21:2003:01-DIA-XSI-NS" schemaLocation="XSI-2nd.xsd"/>
+	<import namespace="urn:mpeg:mpeg21:2003:01-DIA-NS" schemaLocation="UED-2nd.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<!-- ################################################ -->
+	<!--  SEM Base Attributes                             -->
+	<!-- ################################################ -->
+	<attributeGroup name="SEMBaseAttributes">
+		<attribute name="activate" type="boolean" use="optional"/>
+		<attribute name="duration" type="positiveInteger" use="optional"/>
+		<attribute name="fade" type="positiveInteger" use="optional"/>
+		<attribute name="alt" type="anyURI" use="optional"/>
+		<attribute name="priority" type="positiveInteger" use="optional"/>
+		<attribute name="location" type="mpeg7:termReferenceType" use="optional"/>
+		<attributeGroup ref="sedl:SEMAdaptabilityAttributes"/>
+	</attributeGroup>
+	<simpleType name="intensityValueType">
+		<restriction base="float"/>
+	</simpleType>
+	<simpleType name="intensityRangeType">
+		<restriction>
+			<simpleType>
+				<list itemType="float"/>
+			</simpleType>
+			<length value="2" fixed="true"/>
+		</restriction>
+	</simpleType>
+	<!-- ################################################ -->
+	<!--  SEM Adaptability Attributes                     -->
+	<!-- ################################################ -->
+	<attributeGroup name="SEMAdaptabilityAttributes">
+		<attribute name="adaptType" type="sedl:adaptTypeType" use="optional"/>
+		<attribute name="adaptRange" type="sedl:adaptRangeType" use="optional" default="10"/>
+	</attributeGroup>
+	<simpleType name="adaptTypeType">
+		<restriction base="NMTOKEN">
+			<enumeration value="strict"/>
+			<enumeration value="under"/>
+			<enumeration value="over"/>
+			<enumeration value="both"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="adaptRangeType">
+		<restriction base="unsignedInt">
+			<minInclusive value="0"/>
+			<maxInclusive value="100"/>
+		</restriction>
+	</simpleType>
+	<!-- ################################################ -->
+	<!--  SEM Base Elements                               -->
+	<!-- ################################################ -->
+	<element name="Declarations" type="sedl:DeclarationsType"/>
+	<element name="GroupOfEffects" type="sedl:GroupOfEffectsType"/>
+	<element name="Effect" type="sedl:EffectBaseType"/>
+	<element name="ReferenceEffect" type="sedl:ReferenceEffectType"/>
+	<element name="Parameter" type="sedl:ParameterBaseType"/>
+	<!-- ################################################ -->
+	<!--  SEM Base type                                   -->
+	<!-- ################################################ -->
+	<complexType name="SEMBaseType" abstract="true">
+		<complexContent>
+			<restriction base="anyType">
+				<attribute name="id" type="ID" use="optional"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of the SEM root element              -->
+	<!-- ################################################ -->
+	<element name="SEM">
+		<complexType>
+			<sequence>
+				<element name="DescriptionMetadata" type="sedl:DescriptionMetadataType" minOccurs="0" maxOccurs="1"/>
+				<choice maxOccurs="unbounded">
+					<element ref="sedl:Declarations"/>
+					<element ref="sedl:GroupOfEffects"/>
+					<element ref="sedl:Effect"/>
+					<element ref="sedl:ReferenceEffect"/>
+				</choice>
+			</sequence>
+			<attribute name="autoExtraction" type="sedl:autoExtractionType"/>
+			<anyAttribute namespace="##other" processContents="lax"/>
+		</complexType>
+	</element>
+	<simpleType name="autoExtractionType">
+		<restriction base="string">
+			<enumeration value="audio"/>
+			<enumeration value="visual"/>
+			<enumeration value="both"/>
+		</restriction>
+	</simpleType>
+	<!-- ################################################ -->
+	<!--  Definition of Description Metadata Type         -->
+	<!-- ################################################ -->
+	<complexType name="DescriptionMetadataType">
+		<complexContent>
+			<extension base="mpeg7:DescriptionMetadataType">
+				<sequence>
+					<element name="ClassificationSchemeAlias" minOccurs="0" maxOccurs="unbounded">
+						<complexType>
+							<complexContent>
+								<extension base="sedl:SEMBaseType">
+									<attribute name="alias" type="NMTOKEN" use="required"/>
+									<attribute name="href" type="anyURI" use="required"/>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Declarations type                               -->
+	<!-- ################################################ -->
+	<complexType name="DeclarationsType">
+		<complexContent>
+			<extension base="sedl:SEMBaseType">
+				<choice maxOccurs="unbounded">
+					<element ref="sedl:GroupOfEffects"/>
+					<element ref="sedl:Effect"/>
+					<element ref="sedl:Parameter"/>
+				</choice>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Group of Effects type                           -->
+	<!-- ################################################ -->
+	<complexType name="GroupOfEffectsType">
+		<complexContent>
+			<extension base="sedl:SEMBaseType">
+				<choice minOccurs="2" maxOccurs="unbounded">
+					<element ref="sedl:Effect"/>
+					<element ref="sedl:ReferenceEffect"/>
+				</choice>
+				<attributeGroup ref="sedl:SEMBaseAttributes"/>
+				<anyAttribute namespace="##other" processContents="lax"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Effect base type                                -->
+	<!-- ################################################ -->
+	<complexType name="EffectBaseType" abstract="true">
+		<complexContent>
+			<extension base="sedl:SEMBaseType">
+				<sequence minOccurs="0">
+					<element name="SupplementalInformation" type="sedl:SupplementalInformationType" minOccurs="0"/>
+				</sequence>
+				<attribute name="autoExtraction" type="sedl:autoExtractionType"/>
+				<attributeGroup ref="sedl:SEMBaseAttributes"/>
+				<anyAttribute namespace="##other" processContents="lax"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="SupplementalInformationType">
+		<sequence>
+			<element name="ReferenceRegion" type="mpeg7:SpatioTemporalLocatorType"/>
+			<element name="Operator" type="sedl:OperatorType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<simpleType name="OperatorType">
+		<restriction base="NMTOKEN">
+			<enumeration value="average"/>
+			<enumeration value="dominant"/>
+		</restriction>
+	</simpleType>
+	<!-- ################################################ -->
+	<!--  Reference Effect type                           -->
+	<!-- ################################################ -->
+	<complexType name="ReferenceEffectType">
+		<complexContent>
+			<extension base="sedl:SEMBaseType">
+				<attribute name="uri" type="anyURI" use="required"/>
+				<attributeGroup ref="sedl:SEMBaseAttributes"/>
+				<anyAttribute namespace="##other" processContents="lax"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Parameter Base type                             -->
+	<!-- ################################################ -->
+	<complexType name="ParameterBaseType" abstract="true">
+		<complexContent>
+			<extension base="sedl:SEMBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Color Correction Parameter type   -->
+	<!-- ################################################ -->
+	<complexType name="ColorCorrectionParameterType">
+		<complexContent>
+			<extension base="sedl:ParameterBaseType">
+				<sequence>
+					<element name="ToneReproductionCurves" type="ct:ToneReproductionCurvesType" minOccurs="0"/>
+					<element name="ConversionLUT" type="ct:ConversionLUTType"/>
+					<element name="ColorTemperature" type="ct:IlluminantType" minOccurs="0"/>
+					<element name="InputDeviceColorGamut" type="ct:InputDeviceColorGamutType" minOccurs="0"/>
+					<element name="IlluminanceOfSurround" type="mpeg7:unsigned12" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

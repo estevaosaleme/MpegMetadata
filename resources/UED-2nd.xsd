@@ -1,0 +1,1492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Digital Item Adaptation ISO/IEC 21000-7 Second Edition -->
+<!-- Schema for Usage Environment Description Tools -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:dia="urn:mpeg:mpeg21:2003:01-DIA-NS" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2001" targetNamespace="urn:mpeg:mpeg21:2003:01-DIA-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 21000-7 2nd" id="UED-2nd.xsd">
+  <import namespace="urn:mpeg:mpeg7:schema:2001" schemaLocation="mpeg7-udp-2004.xsd"/>
+  <include schemaLocation="DIA-2nd.xsd"/>
+  <include schemaLocation="ConvD-2nd.xsd"/>
+  <!-- ################################################	-->
+  <!--  Definition of UsageEnvironment						-->
+  <!-- ################################################	-->
+  <complexType name="UsageEnvironmentType">
+    <complexContent>
+      <extension base="dia:DIADescriptionType">
+        <sequence>
+          <element name="UsageEnvironmentProperty" type="dia:UsageEnvironmentPropertyBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UsageEnvironmentPropertyBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIADescriptionType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Users									-->
+  <!-- ################################################	-->
+  <complexType name="UsersType">
+    <complexContent>
+      <extension base="dia:UsageEnvironmentPropertyBaseType">
+        <sequence>
+          <element name="User" type="dia:UserType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of User					-->
+  <!-- ################################################	-->
+  <complexType name="UserType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="UserCharacteristic" type="dia:UserCharacteristicBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UserCharacteristicBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of UserInfo								-->
+  <!-- ################################################	-->
+  <complexType name="UserInfoType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="UserInfo" type="mpeg7:AgentType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of UsagePreferences						-->
+  <!-- ################################################	-->
+  <complexType name="UsagePreferencesType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="UsagePreferences" type="mpeg7:UserPreferencesType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of UsageHistory							-->
+  <!-- ################################################	-->
+  <complexType name="UsageHistoryType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="UsageHistory" type="mpeg7:UsageHistoryType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################ -->
+  <!--  Definition of AudioPresentationPreferences	    -->
+  <!-- ################################################ -->
+  <complexType name="AudioPresentationPreferencesType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="VolumeControl" type="mpeg7:zeroToOneType" minOccurs="0"/>
+          <element name="FrequencyEqualizer" type="dia:FrequencyEqualizerType" minOccurs="0"/>
+          <element name="AudibleFrequencyRange" minOccurs="0">
+            <complexType>
+              <sequence>
+                <element name="StartFrequency" type="float"/>
+                <element name="EndFrequency" type="float"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="AudioOutputDevice" minOccurs="0">
+            <simpleType>
+              <restriction base="string">
+                <enumeration value="Headphone"/>
+                <enumeration value="Loudspeaker"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="BalancePreference" minOccurs="0">
+            <simpleType>
+              <restriction base="float">
+                <minInclusive value="-10"/>
+                <maxInclusive value="10"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="Soundfield" type="dia:SoundfieldType" minOccurs="0"/>
+          <element name="SoniferousSpeed" minOccurs="0">
+            <simpleType>
+              <restriction base="float">
+                <minExclusive value="0"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <simpleType name="FrequencyEqualizerType">
+    <restriction>
+      <simpleType>
+        <list itemType="dia:FrequencyEqualizerBaseType"/>
+      </simpleType>
+      <length value="31"/>
+    </restriction>
+  </simpleType>
+  <simpleType name="FrequencyEqualizerBaseType">
+    <restriction base="float">
+      <minInclusive value="-15"/>
+      <maxInclusive value="15"/>
+    </restriction>
+  </simpleType>
+  <complexType name="SoundfieldType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="ImpulseResponse" type="dia:ImpulseResponseType" minOccurs="0"/>
+          <element name="PerceptualParameters" type="dia:PerceptualParametersType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ImpulseResponseType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="SamplingFrequency" type="mpeg7:nonNegativeReal" minOccurs="0"/>
+          <element name="BitsPerSample" type="nonNegativeInteger" minOccurs="0"/>
+          <element name="NumOfChannels" type="nonNegativeInteger" minOccurs="0"/>
+        </sequence>
+        <attribute name="href" type="anyURI" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PerceptualParametersType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="SourcePresence" type="float" minOccurs="0"/>
+          <element name="SourceWarmth" type="float" minOccurs="0"/>
+          <element name="SourceBrilliance" type="float" minOccurs="0"/>
+          <element name="RoomPresence" type="float" minOccurs="0"/>
+          <element name="RunningReverberance" type="float" minOccurs="0"/>
+          <element name="Envelopment" type="float" minOccurs="0"/>
+          <element name="LateReverberance" type="float" minOccurs="0"/>
+          <element name="Heavyness" type="float" minOccurs="0"/>
+          <element name="Liveness" type="float" minOccurs="0"/>
+          <element name="RefDistance" type="float" minOccurs="0"/>
+          <element name="FreqLow" type="float" minOccurs="0"/>
+          <element name="FreqHigh" type="float" minOccurs="0"/>
+          <element name="TimeLimit1" type="float" minOccurs="0"/>
+          <element name="TimeLimit2" type="float" minOccurs="0"/>
+          <element name="TimeLimit3" type="float" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of DisplayPresentationPreferences	-->
+  <!-- ################################################	-->
+  <complexType name="DisplayPresentationPreferencesType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="ColorTemperaturePreference" type="dia:ColorPreferenceType" minOccurs="0"/>
+          <element name="BrightnessPreference" type="dia:ColorPreferenceType" minOccurs="0"/>
+          <element name="SaturationPreference" type="dia:ColorPreferenceType" minOccurs="0"/>
+          <element name="ContrastPreference" type="dia:ColorPreferenceType" minOccurs="0"/>
+          <element name="StereoscopicVideoConversion" type="dia:StereoscopicVideoConversionType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of ColorPreference						-->
+  <!-- ################################################	-->
+  <complexType name="ColorPreferenceType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="BinNumber" type="mpeg7:unsigned12"/>
+          <element name="Value" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <sequence>
+                <element name="PreferredValue" type="mpeg7:unsigned12"/>
+                <element name="ReferenceValue" type="mpeg7:unsigned12"/>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of StereoscopicVideoConversion		-->
+  <!-- ################################################	-->
+  <complexType name="StereoscopicVideoConversionType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="From2DTo3DStereoscopic" minOccurs="0">
+            <complexType>
+              <sequence>
+                <element name="ParallaxType">
+                  <simpleType>
+                    <restriction base="string">
+                      <enumeration value="Positive"/>
+                      <enumeration value="Negative"/>
+                    </restriction>
+                  </simpleType>
+                </element>
+                <element name="DepthRange" type="mpeg7:zeroToOneType"/>
+                <element name="MaxDelayedFrame" type="nonNegativeInteger" minOccurs="0"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="From3DStereoscopicTo2D" minOccurs="0">
+            <complexType>
+              <sequence>
+                <element name="LeftRightInterVideo">
+                  <simpleType>
+                    <restriction base="string">
+                      <enumeration value="Left"/>
+                      <enumeration value="Right"/>
+                      <enumeration value="Intermediate"/>
+                    </restriction>
+                  </simpleType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ###################################################	-->
+  <!--  Definition of GraphicsPresentationPreferencesType	-->
+  <!-- ###################################################	-->
+  <complexType name="GraphicsPresentationPreferencesType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="GeometryEmphasis" type="mpeg7:zeroToOneType" minOccurs="0"/>
+          <element name="TextureEmphasis" type="mpeg7:zeroToOneType" minOccurs="0"/>
+          <element name="AnimationEmphasis" type="mpeg7:zeroToOneType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ###################################################	-->
+  <!--    Definition of ConversionPreference 					-->
+  <!-- ###################################################	-->
+  <complexType name="ConversionPreferenceType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="GeneralResourceConversions" type="dia:ResourceConversionType" minOccurs="0"/>
+          <element name="SpecificResourceConversions" type="dia:SpecificResourceConversionsType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ResourceConversionType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Conversion" type="dia:ConversionType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ConversionType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="From" type="mpeg7:ControlledTermUseType" minOccurs="0"/>
+          <element name="To" type="mpeg7:ControlledTermUseType"/>
+        </sequence>
+        <attribute name="order" type="nonNegativeInteger" use="required"/>
+        <attribute name="weight" type="mpeg7:nonNegativeReal" use="optional" default="1.0"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SpecificResourceConversionsType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Object" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <complexContent>
+                <extension base="dia:ResourceConversionType">
+                  <attribute name="target" type="anyURI" use="required"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ###################################################	-->
+  <!--    Definition of PresentationPriorityPreference		-->
+  <!-- ###################################################	-->
+  <complexType name="PresentationPriorityPreferenceType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="GeneralResourcePriorities" type="dia:GeneralResourcePrioritiesType" minOccurs="0"/>
+          <element name="SpecificResourcePriorities" type="dia:SpecificResourcePrioritiesType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GeneralResourcePrioritiesType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="ModalityPriorities" type="dia:ModalityPrioritiesType" minOccurs="0"/>
+          <element name="GenrePriorities" type="dia:GenrePrioritiesType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SpecificResourcePrioritiesType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Object" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <attribute name="priorityLevel" type="mpeg7:nonNegativeReal" use="optional" default="1.0"/>
+              <attribute name="target" type="anyURI" use="required"/>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ModalityPrioritiesType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Modality" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <complexContent>
+                <extension base="mpeg7:ControlledTermUseType">
+                  <attribute name="priorityLevel" type="mpeg7:nonNegativeReal" use="optional" default="1.0"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenrePrioritiesType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Genre" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <complexContent>
+                <extension base="mpeg7:ControlledTermUseType">
+                  <attribute name="priorityLevel" type="mpeg7:nonNegativeReal" use="optional" default="1.0"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!-- Definition of FocusOfAttentionType 				-->
+  <!-- ################################################	-->
+  <complexType name="FocusOfAttentionType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <choice minOccurs="0">
+          <element name="ROI" minOccurs="0">
+            <complexType>
+              <attribute name="uri" type="anyURI" use="required"/>
+              <attribute name="updateInterval" type="mpeg7:nonNegativeReal" use="optional" default="0"/>
+            </complexType>
+          </element>
+          <element name="TextFocusOfAttention" type="dia:TextFocusOfAttentionType" minOccurs="0"/>
+          <element name="SceneObjectFocusOfAttention" type="mpeg7:MediaLocatorType" minOccurs="0"/>
+        </choice>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TextFocusOfAttentionType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Keyword" minOccurs="0" maxOccurs="unbounded">
+            <!--<complexType>
+              <simpleContent>
+                <extension base="mpeg7:TextualType">
+                  <attribute name="preferenceValue" type="mpeg7:preferenceValueType" use="optional" default="10"/>
+                </extension>
+              </simpleContent>
+            </complexType> -->
+          </element>
+          <element name="Font" type="dia:FontType" minOccurs="0"/>
+        </sequence>
+        <attribute name="textPresentationSpeed" type="mpeg7:nonNegativeReal" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="FontType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <attribute name="fontColor" type="token" use="optional"/>
+        <attribute name="fontSize" type="positiveInteger" use="optional"/>
+        <attribute name="fontType" type="token" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ###########################################	-->
+  <!--  Definition of AuditoryImpairment	   	 	  	-->
+  <!-- ########################################### 	-->
+  <complexType name="AuditoryImpairmentType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="RightEar" type="dia:AudiogramType"/>
+          <element name="LeftEar" type="dia:AudiogramType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AudiogramType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Freq125Hz" type="float" minOccurs="0"/>
+          <element name="Freq250Hz" type="float"/>
+          <element name="Freq500Hz" type="float"/>
+          <element name="Freq1000Hz" type="float"/>
+          <element name="Freq1500Hz" type="float" minOccurs="0"/>
+          <element name="Freq2000Hz" type="float"/>
+          <element name="Freq3000Hz" type="float" minOccurs="0"/>
+          <element name="Freq4000Hz" type="float"/>
+          <element name="Freq6000Hz" type="float" minOccurs="0"/>
+          <element name="Freq8000Hz" type="float"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ##################################	-->
+  <!--  Definition of VisualImpairment	   	-->
+  <!-- ##################################	-->
+  <complexType name="VisualImpairmentType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="Blindness" minOccurs="0">
+            <complexType>
+              <attribute name="eyeSide" use="required">
+                <simpleType>
+                  <restriction base="NMTOKEN">
+                    <enumeration value="both"/>
+                    <enumeration value="left"/>
+                    <enumeration value="right"/>
+                  </restriction>
+                </simpleType>
+              </attribute>
+            </complexType>
+          </element>
+          <element name="LowVisionSymptoms" type="dia:LowVisionImpairmentType" minOccurs="0"/>
+          <element name="ColorVisionDeficiency" type="dia:ColorVisionDeficiencyType" minOccurs="0"/>
+        </sequence>
+        <attribute name="rightSight" type="float" use="optional"/>
+        <attribute name="leftSight" type="float" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LowVisionImpairmentType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="LossOfFineDetail" type="dia:VisualImpairmentDegreeType" minOccurs="0"/>
+          <element name="LackOfContrast" type="dia:VisualImpairmentDegreeType" minOccurs="0"/>
+          <element name="LightSensitivity" type="dia:VisualImpairmentDegreeType" minOccurs="0"/>
+          <element name="NeedOfLight" type="dia:VisualImpairmentDegreeType" minOccurs="0"/>
+          <element name="CenterVisionLoss" type="dia:VisualImpairmentDegreeType" minOccurs="0"/>
+          <element name="PeripheralVisionLoss" type="dia:VisualImpairmentDegreeType" minOccurs="0"/>
+          <element name="Hemianopia" minOccurs="0">
+            <complexType>
+              <attribute name="side" use="required">
+                <simpleType>
+                  <restriction base="NMTOKEN">
+                    <enumeration value="left"/>
+                    <enumeration value="right"/>
+                  </restriction>
+                </simpleType>
+              </attribute>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VisualImpairmentDegreeType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <choice>
+          <element name="NumericDegree" type="mpeg7:zeroToOneType"/>
+          <element name="TextualDegree">
+            <simpleType>
+              <restriction base="token">
+                <enumeration value="Severe"/>
+                <enumeration value="Medium"/>
+                <enumeration value="Mild"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </choice>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ########################################	-->
+  <!--  Definition of ColorVisionDeficiency	   	-->
+  <!-- ########################################	-->
+  <complexType name="ColorVisionDeficiencyType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="DeficiencyType">
+            <simpleType>
+              <restriction base="token">
+                <enumeration value="Red-Deficiency"/>
+                <enumeration value="Green-Deficiency"/>
+                <enumeration value="Blue-Deficiency"/>
+                <enumeration value="CompleteColorBlindness"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="DeficiencyDegree" type="dia:VisualImpairmentDegreeType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of MobilityCharacteristics				-->
+  <!-- ################################################	-->
+  <complexType name="MobilityCharacteristicsType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="UpdateInterval" type="dia:UpdateIntervalType" minOccurs="0"/>
+          <element name="Directivity" type="dia:DirectivityType" minOccurs="0"/>
+          <element name="Erraticity" type="dia:ErraticityType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UpdateIntervalType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="LastUpdatePoint" type="mpeg7:GeographicPointType" minOccurs="0"/>
+          <element name="LastUpdateBinIndex" type="integer" minOccurs="0"/>
+          <element name="LastUpdateTime" type="mpeg7:TimeType" minOccurs="0"/>
+          <element name="Lmax" type="integer" minOccurs="0"/>
+          <element name="Values" minOccurs="0">
+            <simpleType>
+              <restriction base="mpeg7:probabilityVector">
+                <length value="32"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+        <attribute name="xRadius" type="integer" use="optional"/>
+        <attribute name="yRadius" type="integer" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DirectivityType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Mean" type="float" minOccurs="0"/>
+          <element name="Variance" type="float" minOccurs="0"/>
+          <element name="Values" minOccurs="0">
+            <simpleType>
+              <restriction base="mpeg7:probabilityVector">
+                <length value="16"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+        <attribute name="measuredInterval" type="integer" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ErraticityType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Values" minOccurs="0">
+            <simpleType>
+              <restriction base="mpeg7:probabilityVector">
+                <length value="128"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- #########################################	-->
+  <!--  Definition of Destination					-->
+  <!-- #########################################	-->
+  <complexType name="DestinationType">
+    <complexContent>
+      <extension base="dia:UserCharacteristicBaseType">
+        <sequence>
+          <element name="Time" type="mpeg7:TimeType" minOccurs="0"/>
+          <element name="Location" type="mpeg7:PlaceType" minOccurs="0"/>
+          <element name="DestinationClass" minOccurs="0">
+            <complexType>
+              <choice>
+                <element name="FreeClass" type="mpeg7:TextualType" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="StereotypedClass" type="mpeg7:ControlledTermUseType"/>
+              </choice>
+            </complexType>
+          </element>
+          <element name="DestinationName" type="mpeg7:TextualType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Terminals									-->
+  <!-- ################################################	-->
+  <complexType name="TerminalsType">
+    <complexContent>
+      <extension base="dia:UsageEnvironmentPropertyBaseType">
+        <sequence>
+          <element name="Terminal" type="dia:TerminalType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Terminal					 			-->
+  <!-- ################################################	-->
+  <complexType name="TerminalType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="TerminalCapability" type="dia:TerminalCapabilityBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TerminalCapabilityBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of CodecCapabilities	                 -->
+  <!-- ################################################	-->
+  <complexType name="CodecCapabilitiesType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="Decoding" type="dia:CodecCapabilityBaseType" minOccurs="0" maxOccurs="unbounded"/>
+          <element name="Encoding" type="dia:CodecCapabilityBaseType" minOccurs="0" maxOccurs="unbounded"/>
+          <element name="DecodingEncoding" type="dia:CodecCapabilityBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of CodecCapability				 		-->
+  <!-- ################################################	-->
+  <complexType name="CodecCapabilityBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence minOccurs="0" maxOccurs="unbounded">
+          <element name="Format" type="mpeg7:ControlledTermUseType"/>
+          <element name="CodecParameter" type="dia:CodecParameterBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AudioCapabilitiesType">
+    <complexContent>
+      <extension base="dia:CodecCapabilityBaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="GraphicsCapabilitiesType">
+    <complexContent>
+      <extension base="dia:CodecCapabilityBaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="ImageCapabilitiesType">
+    <complexContent>
+      <extension base="dia:CodecCapabilityBaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="SceneGraphCapabilitiesType">
+    <complexContent>
+      <extension base="dia:CodecCapabilityBaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="TransportCapabilitiesType">
+    <complexContent>
+      <extension base="dia:CodecCapabilityBaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="VideoCapabilitiesType">
+    <complexContent>
+      <extension base="dia:CodecCapabilityBaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of CodecParameter				 		-->
+  <!-- ################################################	-->
+  <complexType name="CodecParameterBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="CodecParameterBufferSizeType">
+    <complexContent>
+      <extension base="dia:CodecParameterBaseType">
+        <sequence>
+          <element name="BufferSize" type="integer" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CodecParameterBitRateType">
+    <complexContent>
+      <extension base="dia:CodecParameterBaseType">
+        <sequence>
+          <element name="BitRate" minOccurs="0">
+            <complexType>
+              <attribute name="average" type="nonNegativeInteger" use="optional"/>
+              <attribute name="maximum" type="nonNegativeInteger" use="optional"/>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CodecParameterMemoryBandwidthType">
+    <complexContent>
+      <extension base="dia:CodecParameterBaseType">
+        <sequence>
+          <element name="MemoryBandwidth" type="integer" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CodecParameterVertexRateType">
+    <complexContent>
+      <extension base="dia:CodecParameterBaseType">
+        <sequence>
+          <element name="VertexRate" type="integer" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CodecParameterFillRateType">
+    <complexContent>
+      <extension base="dia:CodecParameterBaseType">
+        <sequence>
+          <element name="FillRate" type="integer" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Displays								-->
+  <!-- ################################################	-->
+  <complexType name="DisplaysType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="Display" type="dia:DisplayType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Display					 			-->
+  <!-- ################################################	-->
+  <complexType name="DisplayType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="DisplayCapability" type="dia:DisplayCapabilityBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DisplayCapabilityBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of DisplayCapability	 				-->
+  <!-- ################################################	-->
+  <complexType name="DisplayCapabilityType">
+    <complexContent>
+      <extension base="dia:DisplayCapabilityBaseType">
+        <sequence>
+          <element name="Mode" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <sequence>
+                <element name="Resolution" type="dia:ResolutionType" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="SizeChar" minOccurs="0">
+                  <complexType>
+                    <attribute name="horizontal" type="integer" use="required"/>
+                    <attribute name="vertical" type="integer" use="required"/>
+                  </complexType>
+                </element>
+              </sequence>
+              <attribute name="refreshRate" type="float" use="optional"/>
+            </complexType>
+          </element>
+          <element name="ScreenSize" minOccurs="0">
+            <complexType>
+              <attribute name="horizontal" type="float" use="required"/>
+              <attribute name="vertical" type="float" use="required"/>
+            </complexType>
+          </element>
+          <element name="ColorBitDepth" minOccurs="0">
+            <complexType>
+              <attribute name="red" type="integer" use="required"/>
+              <attribute name="green" type="integer" use="required"/>
+              <attribute name="blue" type="integer" use="required"/>
+            </complexType>
+          </element>
+          <element name="ColorPrimaries" minOccurs="0">
+            <complexType>
+              <sequence>
+                <element name="ChromaticityRed" type="dia:ChromaticityType"/>
+                <element name="ChromaticityGreen" type="dia:ChromaticityType"/>
+                <element name="ChromaticityBlue" type="dia:ChromaticityType"/>
+                <element name="ChromaticityWhite" type="dia:ChromaticityType" minOccurs="0"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="CharacterSetCode" type="mpeg7:characterSetCode" minOccurs="0" maxOccurs="unbounded"/>
+          <element name="RenderingFormat" type="mpeg7:ControlledTermUseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+        <attribute name="stereoscopic" type="boolean" use="optional"/>
+        <attribute name="maximumBrightness" type="float" use="optional"/>
+        <attribute name="contrastRatio" type="positiveInteger" use="optional"/>
+        <attribute name="gamma" type="float" use="optional"/>
+        <attribute name="bitsPerPixel" type="integer" use="optional"/>
+        <attribute name="colorCapable" type="boolean" use="optional"/>
+        <attribute name="sRGB" type="boolean" use="optional"/>
+        <attribute name="fieldSequentialColor" type="boolean" use="optional"/>
+        <attribute name="backlightLuminance" type="mpeg7:zeroToOneType" use="optional"/>
+        <attribute name="dotPitch" type="float" use="optional"/>
+        <attribute name="activeDisplay" type="boolean" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ResolutionType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <attribute name="horizontal" type="integer" use="required"/>
+        <attribute name="vertical" type="integer" use="required"/>
+        <attribute name="activeResolution" type="boolean" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ChromaticityType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <attribute name="x" type="mpeg7:zeroToOneType" use="required"/>
+        <attribute name="y" type="mpeg7:zeroToOneType" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of AudioOutputs								-->
+  <!-- ################################################	-->
+  <complexType name="AudioOutputsType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="AudioOutput" type="dia:AudioOutputType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of AudioOutput					 			-->
+  <!-- ################################################	-->
+  <complexType name="AudioOutputType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="AudioOutputCapability" type="dia:AudioOutputCapabilityBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AudioOutputCapabilityBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of AudioOutputCapabilities				-->
+  <!-- ################################################	-->
+  <complexType name="AudioOutputCapabilitiesType">
+    <complexContent>
+      <extension base="dia:AudioOutputCapabilityBaseType">
+        <sequence>
+          <element name="Mode" type="dia:AudioModeType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+        <attribute name="lowFrequency" type="float" use="optional"/>
+        <attribute name="highFrequency" type="float" use="optional"/>
+        <attribute name="signalNoiseRatio" type="float" use="optional"/>
+        <attribute name="power" type="float" use="optional"/>
+        <attribute name="numChannels" type="nonNegativeInteger" use="optional"/>
+        <attribute name="silenceSuppression" type="boolean" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AudioModeType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <attribute name="samplingFrequency" type="float" use="optional"/>
+        <attribute name="bitsPerSample" type="integer" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ###############################################	-->
+  <!--  UserInteractionInputs								-->
+  <!-- ###############################################	-->
+  <complexType name="UserInteractionInputsType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="UserInteractionInput" type="dia:UserInteractionInputType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  UserInteractionInputType							-->
+  <!-- ################################################	-->
+  <complexType name="UserInteractionInputType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="UserInteractionInputSupport" type="dia:UserInteractionInputSupportBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UserInteractionInputSupportBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="StringInputType">
+    <complexContent>
+      <extension base="dia:UserInteractionInputSupportBaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="KeyInputType">
+    <complexContent>
+      <extension base="dia:UserInteractionInputSupportBaseType">
+        <sequence>
+          <element name="KeyInput" type="mpeg7:ControlledTermUseType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MicrophoneType">
+    <complexContent>
+      <extension base="dia:UserInteractionInputSupportBaseType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="MouseType">
+    <complexContent>
+      <extension base="dia:UserInteractionInputSupportBaseType">
+        <sequence>
+          <element name="Mouse" type="dia:GenericMouseType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TrackballType">
+    <complexContent>
+      <extension base="dia:UserInteractionInputSupportBaseType">
+        <sequence>
+          <element name="Trackball" type="dia:GenericMouseType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PenType">
+    <complexContent>
+      <extension base="dia:UserInteractionInputSupportBaseType">
+        <sequence>
+          <element name="Pen" type="dia:GenericPenType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TabletType">
+    <complexContent>
+      <extension base="dia:UserInteractionInputSupportBaseType">
+        <sequence>
+          <element name="Tablet" type="dia:GenericPenType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericMouseType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <attribute name="resolution" type="nonNegativeInteger" use="optional"/>
+        <attribute name="buttons" type="nonNegativeInteger" use="required"/>
+        <attribute name="scrollWheel" type="boolean" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericPenType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <attribute name="resolution" type="nonNegativeInteger" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of DeviceClass							-->
+  <!-- ################################################	-->
+  <complexType name="DeviceClassType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="DeviceClass" type="mpeg7:ControlledTermUseType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of PowerCharacteristics				-->
+  <!-- ################################################	-->
+  <complexType name="PowerCharacteristicsType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <attribute name="averageAmpereConsumption" type="mpeg7:nonNegativeReal" use="optional"/>
+        <attribute name="batteryCapacityRemaining" type="mpeg7:nonNegativeReal" use="optional"/>
+        <attribute name="batteryTimeRemaining" type="integer" use="optional"/>
+        <attribute name="runningOnBatteries" type="boolean" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Storages								-->
+  <!-- ################################################	-->
+  <complexType name="StoragesType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="Storage" type="dia:StorageType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Storage					 			-->
+  <!-- ################################################	-->
+  <complexType name="StorageType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="StorageCharacteristic" type="dia:StorageCharacteristicBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="StorageCharacteristicBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of StorageCharacteristics				-->
+  <!-- ################################################	-->
+  <complexType name="StorageCharacteristicsType">
+    <complexContent>
+      <extension base="dia:StorageCharacteristicBaseType">
+        <attribute name="inputTransferRate" type="nonNegativeInteger" use="optional"/>
+        <attribute name="outputTransferRate" type="nonNegativeInteger" use="optional"/>
+        <attribute name="size" type="float" use="optional"/>
+        <attribute name="writable" type="boolean" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of DataIOs								-->
+  <!-- ################################################	-->
+  <complexType name="DataIOsType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="DataIO" type="dia:DataIOType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of DataIO					 			-->
+  <!-- ################################################	-->
+  <complexType name="DataIOType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="DataIOCharacteristic" type="dia:DataIOCharacteristicBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DataIOCharacteristicBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of DataIOCharacteristics				-->
+  <!-- ################################################	-->
+  <complexType name="DataIOCharacteristicsType">
+    <complexContent>
+      <extension base="dia:DataIOCharacteristicBaseType">
+        <attribute name="busWidth" type="nonNegativeInteger" use="optional"/>
+        <attribute name="transferSpeed" type="nonNegativeInteger" use="optional"/>
+        <attribute name="maxDevices" type="nonNegativeInteger" use="optional"/>
+        <attribute name="numDevices" type="nonNegativeInteger" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Benchmarks                        -->
+  <!-- ################################################	-->
+  <complexType name="BenchmarksType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="Benchmark" type="dia:BenchmarkType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Benchmark                        -->
+  <!-- ################################################	-->
+  <complexType name="BenchmarkType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="DeviceBenchmark" type="dia:DeviceBenchmarkBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################ -->
+  <!--  Definition of DeviceBenchmarkBaseType 	        -->
+  <!-- ################################################ -->
+  <complexType name="DeviceBenchmarkBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################ -->
+  <!--  Definition of CPUBenchmarkType                  -->
+  <!-- ################################################ -->
+  <complexType name="CPUBenchmarkType">
+    <complexContent>
+      <extension base="dia:DeviceBenchmarkBaseType">
+        <attribute name="name" type="mpeg7:termReferenceType" use="required"/>
+        <attribute name="baseValue" type="float" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################ -->
+  <!--  Definition of ThreeDBenchmarkType                   -->
+  <!-- ################################################ -->
+  <complexType name="ThreeDBenchmarkType">
+    <complexContent>
+      <extension base="dia:DeviceBenchmarkBaseType">
+        <attribute name="name" type="mpeg7:termReferenceType" use="required"/>
+        <attribute name="meanValue" type="float" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of IPMPTools								-->
+  <!-- ################################################	-->
+  <complexType name="IPMPToolsType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="IPMPTool" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <simpleContent>
+                <extension base="base64Binary">
+                  <attribute name="ToolCategory" use="required">
+                    <simpleType>
+                      <restriction base="string">
+                        <enumeration value="MPEG2"/>
+                        <enumeration value="MPEG4"/>
+                      </restriction>
+                    </simpleType>
+                  </attribute>
+                </extension>
+              </simpleContent>
+            </complexType>
+          </element>
+          <element name="IPMPSType" type="hexBinary" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of ConversionCapabilitiesType			-->
+  <!-- ################################################	-->
+  <complexType name="ConversionCapabilitiesType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="ConversionCapability" type="dia:ConversionCapabilityType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ########################################### -->
+  <!-- ConversionCapabilityType                    -->
+  <!-- ########################################### -->
+  <complexType name="ConversionCapabilityType">
+    <complexContent>
+      <extension base="dia:ConversionDescriptionBaseType">
+        <sequence>
+          <any namespace="##other" processContents="lax" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of RELCapabilities	 					-->
+  <!-- ################################################	-->
+  <complexType name="RELCapabilitiesType">
+    <complexContent>
+      <extension base="dia:TerminalCapabilityBaseType">
+        <sequence>
+          <element name="RightsLanguage" type="dia:RELCapabilityType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of RELCapability		  					-->
+  <!-- ################################################	-->
+  <complexType name="RELCapabilityType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="Name" type="mpeg7:ControlledTermUseType"/>
+        </sequence>
+        <attribute name="preferenceLevel" type="positiveInteger" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Networks								-->
+  <!-- ################################################	-->
+  <complexType name="NetworksType">
+    <complexContent>
+      <extension base="dia:UsageEnvironmentPropertyBaseType">
+        <sequence>
+          <element name="Network" type="dia:NetworkType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Network								-->
+  <!-- ################################################	-->
+  <complexType name="NetworkType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="NetworkCharacteristic" type="dia:NetworkCharacteristicBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="NetworkCharacteristicBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ######################################## 	-->
+  <!--  Definition of NetworkCapability	 		-->
+  <!-- ######################################## 	-->
+  <complexType name="NetworkCapabilityType">
+    <complexContent>
+      <extension base="dia:NetworkCharacteristicBaseType">
+        <attribute name="maxCapacity" type="nonNegativeInteger" use="optional"/>
+        <attribute name="minGuaranteed" type="nonNegativeInteger" use="optional"/>
+        <attribute name="inSequenceDelivery" type="boolean" use="optional"/>
+        <attribute name="errorDelivery" type="boolean" use="optional"/>
+        <attribute name="errorCorrection" type="boolean" use="optional"/>
+        <attribute name="maxPacketSize" type="positiveInteger" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ######################################## 	-->
+  <!--  Definition of NetworkCondition		 		-->
+  <!-- ######################################## 	-->
+  <complexType name="NetworkConditionType">
+    <complexContent>
+      <extension base="dia:NetworkCharacteristicBaseType">
+        <sequence>
+          <element name="AvailableBandwidth" minOccurs="0">
+            <complexType>
+              <attribute name="minimum" type="nonNegativeInteger" use="optional"/>
+              <attribute name="maximum" type="nonNegativeInteger" use="optional"/>
+              <attribute name="average" type="nonNegativeInteger" use="optional"/>
+            </complexType>
+          </element>
+          <element name="Delay" minOccurs="0">
+            <complexType>
+              <attribute name="packetTwoWay" type="nonNegativeInteger" use="optional"/>
+              <attribute name="packetOneWay" type="nonNegativeInteger" use="optional"/>
+              <attribute name="delayVariation" type="integer" use="optional"/>
+            </complexType>
+          </element>
+          <element name="Error" minOccurs="0">
+            <complexType>
+              <attribute name="packetLossRate" type="mpeg7:nonNegativeReal" use="optional"/>
+              <attribute name="bitErrorRate" type="nonNegativeInteger" use="optional"/>
+            </complexType>
+          </element>
+        </sequence>
+        <attribute name="startTime" type="mpeg7:timePointType" use="optional"/>
+        <attribute name="duration" type="mpeg7:durationType" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of NaturalEnvironments					-->
+  <!-- ################################################	-->
+  <complexType name="NaturalEnvironmentsType">
+    <complexContent>
+      <extension base="dia:UsageEnvironmentPropertyBaseType">
+        <sequence>
+          <element name="NaturalEnvironment" type="dia:NaturalEnvironmentType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of NaturalEnvironment					-->
+  <!-- ################################################	-->
+  <complexType name="NaturalEnvironmentType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="NaturalEnvironmentCharacteristic" type="dia:NaturalEnvironmentCharacteristicBaseType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="NaturalEnvironmentCharacteristicBaseType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Location								-->
+  <!-- ################################################	-->
+  <complexType name="LocationType">
+    <complexContent>
+      <extension base="dia:NaturalEnvironmentCharacteristicBaseType">
+        <sequence>
+          <element name="Location" type="mpeg7:PlaceType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of Time									-->
+  <!-- ################################################	-->
+  <complexType name="TimeType">
+    <complexContent>
+      <extension base="dia:NaturalEnvironmentCharacteristicBaseType">
+        <sequence>
+          <element name="Time" type="mpeg7:TimeType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ######################################## 	-->
+  <!--  Definition of AudioEnvironment     		-->
+  <!-- ######################################## 	-->
+  <complexType name="AudioEnvironmentType">
+    <complexContent>
+      <extension base="dia:NaturalEnvironmentCharacteristicBaseType">
+        <sequence>
+          <element name="NoiseLevel" type="float" minOccurs="0"/>
+          <element name="NoiseFrequencySpectrum" minOccurs="0">
+            <simpleType>
+              <restriction base="mpeg7:floatVector">
+                <length value="33"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################ -->
+  <!--   Definition of IlluminationCharacteristics      -->
+  <!-- ################################################ -->
+  <complexType name="IlluminationCharacteristicsType">
+    <complexContent>
+      <extension base="dia:NaturalEnvironmentCharacteristicBaseType">
+        <sequence>
+          <element name="TypeOfIllumination" minOccurs="0">
+            <complexType>
+              <choice>
+                <element name="ColorTemperature" type="mpeg7:unsigned8"/>
+                <element name="Chromaticity">
+                  <complexType>
+                    <sequence>
+                      <element name="x" type="mpeg7:zeroToOneType"/>
+                      <element name="y" type="mpeg7:zeroToOneType"/>
+                    </sequence>
+                  </complexType>
+                </element>
+              </choice>
+            </complexType>
+          </element>
+          <element name="Illuminance" type="nonNegativeInteger" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>

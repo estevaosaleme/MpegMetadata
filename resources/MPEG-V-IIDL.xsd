@@ -1,0 +1,65 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:si="urn:mpeg:mpeg21:2003:01-DIA-XSI-NS" xmlns:iidl="urn:mpeg:mpeg-v:2010:01-IIDL-NS" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" xmlns:ns1="urn:mpeg:mpeg-v:2010:01-DCV-NS" xmlns:ns2="urn:mpeg:mpeg-v:2010:01-SIV-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-IIDL-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-5" id="MPEG-V-IIDL.xsd">
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-DCV-NS" schemaLocation="MPEG-V-DCV.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-SIV-NS" schemaLocation="MPEG-V-SIV.xsd"/>
+	<!-- ################################################	-->
+	<!--  Root and Top-Level Elements		                 -->
+	<!-- ################################################	-->
+	<element name="InteractionInfo" type="iidl:InteractionInfoType"/>
+	<element name="SensedInfo" type="iidl:SensedInfoBaseType"/>
+	<element name="DeviceCommand" type="iidl:DeviceCommandBaseType"/>
+	<complexType name="InteractionInfoType">
+		<choice>
+			<element name="DeviceCommandList" type="iidl:DeviceCmdListType"/>
+			<element name="SensedInfoList" type="iidl:SensedInfoListType"/>
+		</choice>
+	</complexType>
+	<complexType name="SensedInfoListType">
+		<sequence>
+			<element ref="iidl:SensedInfo" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="DeviceCmdListType">
+		<sequence>
+			<element ref="iidl:DeviceCommand" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<!-- ################################################	-->
+	<!--  Device command base type		                  -->
+	<!-- ################################################	-->
+	<complexType name="DeviceCommandBaseType" abstract="true">
+		<sequence>
+			<element name="TimeStamp" type="mpegvct:TimeStampType"/>
+		</sequence>
+		<attributeGroup ref="iidl:DeviceCmdBaseAttributes"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Device Command Base Attributes    -->
+	<!-- ################################################ -->
+	<attributeGroup name="DeviceCmdBaseAttributes">
+		<attribute name="id" type="ID" use="optional"/>
+		<attribute name="deviceIdRef" type="anyURI" use="optional"/>
+		<attribute name="activate" type="boolean" use="optional" default="true"/>
+	</attributeGroup>
+	<!-- ################################################	-->
+	<!--  Sensed information base type		              -->
+	<!-- ################################################	-->
+	<complexType name="SensedInfoBaseType" abstract="true">
+		<sequence>
+			<element name="TimeStamp" type="mpegvct:TimeStampType" minOccurs="0"/>
+		</sequence>
+		<attributeGroup ref="iidl:sensedInfoBaseAttributes"/>
+	</complexType>
+	<!-- ###################################################	-->
+	<!--  Definition of Sensed information Base Attributes 	-->
+	<!-- ###################################################	-->
+	<attributeGroup name="sensedInfoBaseAttributes">
+		<attribute name="id" type="ID" use="optional"/>
+		<attribute name="sensorIdRef" type="anyURI" use="optional"/>
+		<attribute name="linkedlist" type="anyURI" use="optional"/>
+		<attribute name="groupID" type="anyURI" use="optional"/>
+		<attribute name="activate" type="boolean" use="optional"/>
+		<attribute name="priority" type="nonNegativeInteger" use="optional" default="0"/>
+	</attributeGroup>
+</schema>

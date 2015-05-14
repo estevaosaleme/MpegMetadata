@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Digital Item Adaptation ISO/IEC 21000-7 Second Edition -->
+<!-- Schema for basic schema tools -->
+<schema version="ISO/IEC 21000-7 2nd" id="DIA-2nd.xsd" targetNamespace="urn:mpeg:mpeg21:2003:01-DIA-NS" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:dia="urn:mpeg:mpeg21:2003:01-DIA-NS" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <!-- ################################################	-->
+  <!--  Definition of DIA Base Types						-->
+  <!-- ################################################	-->
+  <complexType name="DIABaseType" abstract="true">
+    <complexContent>
+      <restriction base="anyType">
+        <attribute name="id" type="ID" use="optional"/>
+      </restriction>
+    </complexContent>
+  </complexType>
+  <complexType name="DIADescriptionType" abstract="true">
+    <complexContent>
+      <extension base="dia:DIABaseType"/>
+    </complexContent>
+  </complexType>
+  <!-- ################################################ -->
+  <!--  Definition of Description Metadata Type         -->
+  <!-- ################################################ -->
+  <complexType name="DescriptionMetadataType">
+    <complexContent>
+      <extension base="dia:DIABaseType">
+        <sequence>
+          <element name="ClassificationSchemeAlias" maxOccurs="unbounded">
+            <complexType>
+              <complexContent>
+                <extension base="dia:DIABaseType">
+                  <attribute name="alias" type="NMTOKEN" use="required"/>
+                  <attribute name="href" type="anyURI" use="required"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!-- ################################################	-->
+  <!--  Definition of DIA Root Element						-->
+  <!-- ################################################	-->
+  <element name="DIA">
+    <complexType>
+      <sequence>
+        <element name="DescriptionMetadata" type="dia:DescriptionMetadataType" minOccurs="0"/>
+        <choice maxOccurs="unbounded">
+          <element name="Description" type="dia:DIADescriptionType"/>
+          <element name="Reference" type="dia:ReferenceType"/>
+        </choice>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="DIADescriptionUnit" type="dia:DIABaseType"/>
+  <!-- ################################################	-->
+  <!--  Definition of Reference								-->
+  <!-- ################################################	-->
+  <complexType name="ReferenceType">
+    <attribute name="uri" type="anyURI" use="required"/>
+  </complexType>
+</schema>

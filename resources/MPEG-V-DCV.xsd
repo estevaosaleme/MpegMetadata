@@ -1,0 +1,190 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:dcv="urn:mpeg:mpeg-v:2010:01-DCV-NS" xmlns:iidl="urn:mpeg:mpeg-v:2010:01-IIDL-NS" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-DCV-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-6" id="MPEG-V-DCV.xsd">
+	<import namespace="urn:mpeg:mpeg-v:2010:01-IIDL-NS" schemaLocation="MPEG-V-IIDL.xsd"/>
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Light Type                           	-->
+	<!-- ################################################ -->
+	<complexType name="LightType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="color" type="mpegvct:colorType" use="optional"/>
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Flash Type            -->
+	<!-- ################################################ -->
+	<complexType name="FlashType">
+		<complexContent>
+			<extension base="dcv:LightType">
+				<attribute name="frequency" type="positiveInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Heating Type            -->
+	<!-- ################################################ -->
+	<complexType name="HeatingType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Cooling Type            -->
+	<!-- ################################################ -->
+	<complexType name="CoolingType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Wind Type              	 	 -->
+	<!-- ################################################ -->
+	<complexType name="WindType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Vibration Type              -->
+	<!-- ################################################ -->
+	<complexType name="VibrationType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Sprayer Type                -->
+	<!-- ################################################ -->
+	<complexType name="SprayerType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="sprayingType" type="mpeg7:termReferenceType"/>
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Scent Type                	 -->
+	<!-- ################################################ -->
+	<complexType name="ScentType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="scent" type="mpeg7:termReferenceType" use="optional"/>
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Fog Type            	-->
+	<!-- ################################################ -->
+	<complexType name="FogType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<attribute name="intensity" type="integer" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Color Correction Type        -->
+	<!-- ################################################ -->
+	<complexType name="ColorCorrectionType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<sequence minOccurs="0" maxOccurs="unbounded">
+					<element name="SpatialLocator" type="mpeg7:RegionLocatorType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ############################################################### -->
+	<!--  Definition of SDCmd Initialize Color Correction Parameter Type -->
+	<!-- ############################################################### -->
+	<complexType name="InitializeColorCorrectionParameterType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<sequence>
+					<element name="ToneReproductionCurves" type="mpegvct:ToneReproductionCurvesType" minOccurs="0"/>
+					<element name="ConversionLUT" type="mpegvct:ConversionLUTType"/>
+					<element name="ColorTemperature" type="mpegvct:IlluminantType" minOccurs="0"/>
+					<element name="InputDeviceColorGamut" type="mpegvct:InputDeviceColorGamutType" minOccurs="0"/>
+					<element name="IlluminanceOfSurround" type="mpeg7:unsigned12" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Rigid Body Motion Type            -->
+	<!-- ################################################ -->
+	<complexType name="RigidBodyMotionType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<sequence>
+					<element name="MoveToward" type="dcv:MoveTowardType" minOccurs="0"/>
+					<element name="Incline" type="dcv:InclineType" minOccurs="0"/>
+				</sequence>
+				<attribute name="duration" type="float"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="MoveTowardType">
+		<attribute name="directionX" type="float"/>
+		<attribute name="directionY" type="float"/>
+		<attribute name="directionZ" type="float"/>
+		<attribute name="speedX" type="float"/>
+		<attribute name="speedY" type="float"/>
+		<attribute name="speedZ" type="float"/>
+		<attribute name="accelerationX" type="float"/>
+		<attribute name="accelerationY" type="float"/>
+		<attribute name="accelerationZ" type="float"/>
+	</complexType>
+	<complexType name="InclineType">
+		<attribute name="pitchAngle" type="mpegvct:InclineAngleType" use="optional"/>
+		<attribute name="yawAngle" type="mpegvct:InclineAngleType" use="optional"/>
+		<attribute name="rollAngle" type="mpegvct:InclineAngleType" use="optional"/>
+		<attribute name="pitchSpeed" type="float" use="optional"/>
+		<attribute name="yawSpeed" type="float" use="optional"/>
+		<attribute name="rollSpeed" type="float" use="optional"/>
+		<attribute name="pitchAcceleration" type="float" use="optional"/>
+		<attribute name="yawAcceleration" type="float" use="optional"/>
+		<attribute name="rollAcceleration" type="float" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Tactile Type            	-->
+	<!-- ################################################ -->
+	<complexType name="TactileType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<sequence>
+					<element name="ArrayIntensity" type="mpeg7:FloatMatrixType" minOccurs="0"/>
+				</sequence>
+				<attribute name="tactileDisplay" type="mpeg7:termReferenceType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of DCV Kinesthetic Type            	-->
+	<!-- ################################################ -->
+	<complexType name="KinestheticType">
+		<complexContent>
+			<extension base="iidl:DeviceCommandBaseType">
+				<sequence>
+					<element name="Position" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+					<element name="Orientation" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+					<element name="Force" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+					<element name="Torque" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

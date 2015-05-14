@@ -1,0 +1,116 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:dia="urn:mpeg:mpeg21:2003:01-DIA-NS" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" xmlns:cidl="urn:mpeg:mpeg-v:2010:01-CIDL-NS" xmlns:ns1="urn:mpeg:mpeg-v:2010:01-DCDV-NS" xmlns:ns2="urn:mpeg:mpeg-v:2010:01-SCDV-NS" xmlns:ns3="urn:mpeg:mpeg-v:2010:01-SEPV-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-CIDL-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-2" id="MPEG-V-CIDL.xsd">
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<import namespace="urn:mpeg:mpeg21:2003:01-DIA-NS" schemaLocation="UED-2nd.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-DCDV-NS" schemaLocation="MPEG-V-DCDV.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-SCDV-NS" schemaLocation="MPEG-V-SCDV.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-SEPV-NS" schemaLocation="MPEG-V-SEPV.xsd"/>
+	<!-- ################################################ -->
+	<!--  Root Element  	 			                                    -->
+	<!-- ################################################ -->
+	<element name="ControlInfo" type="cidl:ControlInfoType"/>
+	<complexType name="ControlInfoType">
+		<sequence>
+			<element name="SensoryDeviceCapabilityList" type="cidl:SensoryDeviceCapabilityListType" minOccurs="0"/>
+			<element name="SensorDeviceCapabilityList" type="cidl:SensorDeviceCapabilityListType" minOccurs="0"/>
+			<element name="UserSensoryPreferenceList" type="cidl:UserSensoryPreferenceListType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="SensoryDeviceCapabilityListType">
+		<sequence>
+			<element name="SensoryDeviceCapability" type="cidl:SensoryDeviceCapabilityBaseType" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="SensorDeviceCapabilityListType">
+		<sequence>
+			<element name="SensorDeviceCapability" type="cidl:SensorCapabilityBaseType" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="UserSensoryPreferenceListType">
+		<sequence>
+			<element name="USPreference" type="cidl:UserSensoryPreferenceBaseType" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<!-- ################################################	-->
+	<!--  Sensory Device capability base type		            -->
+	<!-- ################################################	-->
+	<complexType name="SensoryDeviceCapabilityBaseType" abstract="true">
+		<complexContent>
+			<extension base="dia:TerminalCapabilityBaseType">
+				<attributeGroup ref="cidl:sensoryDeviceCapabilityAttributes"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################	-->
+	<!--  Definition of Sensory Device Capability Attributes 	              -->
+	<!-- ################################################	-->
+	<attributeGroup name="sensoryDeviceCapabilityAttributes">
+		<attribute name="zerothOrderDelayTime" type="nonNegativeInteger" use="optional"/>
+		<attribute name="firstOrderDelayTime" type="nonNegativeInteger" use="optional"/>
+		<attribute name="locator" type="mpeg7:termReferenceType" use="optional"/>
+	</attributeGroup>
+	<!-- ################################################	-->
+	<!--  Sensor Capability base type 				        -->
+	<!-- ################################################	-->
+	<complexType name="SensorCapabilityBaseType" abstract="true">
+		<complexContent>
+			<extension base="dia:TerminalCapabilityBaseType">
+				<sequence>
+					<element name="Accuracy" type="cidl:AccuracyType" minOccurs="0"/>
+				</sequence>
+				<attributeGroup ref="cidl:sensorCapabilityBaseAttributes"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="AccuracyType" abstract="true"/>
+	<complexType name="PercentAccuracy">
+		<complexContent>
+			<extension base="cidl:AccuracyType">
+				<attribute name="value" type="mpeg7:zeroToOneType"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ValueAccuracy">
+		<complexContent>
+			<extension base="cidl:AccuracyType">
+				<attribute name="value" type="float"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################	-->
+	<!--  Definition of Sensor Capability Base Attributes 				               -->
+	<!-- ################################################	-->
+	<attributeGroup name="sensorCapabilityBaseAttributes">
+		<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+		<attribute name="maxValue" type="float" use="optional"/>
+		<attribute name="minValue" type="float" use="optional"/>
+		<attribute name="offset" type="float" use="optional"/>
+		<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="sensitivity" type="float" use="optional"/>
+		<attribute name="SNR" type="float" use="optional"/>
+	</attributeGroup>
+	<!-- ################################################	-->
+	<!--  UserSensory Preference base type		                -->
+	<!-- ################################################	-->
+	<complexType name="UserSensoryPreferenceBaseType" abstract="true">
+		<complexContent>
+			<extension base="dia:UserCharacteristicBaseType">
+				<attributeGroup ref="cidl:userSensoryPrefBaseAttributes"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################	-->
+	<!--  User Sensory Preference Base Attributes 	     -->
+	<!-- ################################################	-->
+	<attributeGroup name="userSensoryPrefBaseAttributes">
+		<attribute name="adaptationMode" type="cidl:adaptationModeType" use="optional"/>
+		<attribute name="activate" type="boolean" use="optional"/>
+	</attributeGroup>
+	<!--  User Preference of Adaptation Mode Types     -->
+	<simpleType name="adaptationModeType">
+		<restriction base="string">
+			<enumeration value="strict"/>
+			<enumeration value="scalable"/>
+		</restriction>
+	</simpleType>
+</schema>

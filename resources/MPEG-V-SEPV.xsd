@@ -1,0 +1,259 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:cidl="urn:mpeg:mpeg-v:2010:01-CIDL-NS" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" xmlns:sepv="urn:mpeg:mpeg-v:2010:01-SEPV-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-SEPV-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-2" id="MPEG-V-SEPV.xsd">
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CIDL-NS" schemaLocation="MPEG-V-CIDL.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<!-- ################################################ -->
+	<!-- Light Preference type	    			    	           	  -->
+	<!-- ################################################ -->
+	<complexType name="LightPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<sequence>
+					<element name="UnfavorableColor" type="mpegvct:colorType" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Flash Preference type                                 -->
+	<!-- ################################################ -->
+	<complexType name="FlashPrefType">
+		<complexContent>
+			<extension base="sepv:LightPrefType">
+				<attribute name="maxFrequency" type="positiveInteger" use="optional"/>
+				<attribute name="freqUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Heating Preference type                            -->
+	<!-- ################################################ -->
+	<complexType name="HeatingPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<attribute name="minIntensity" type="integer" use="optional"/>
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Cooling Preference type                            -->
+	<!-- ################################################ -->
+	<complexType name="CoolingPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<attribute name="minIntensity" type="integer" use="optional"/>
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Wind Preference type                             -->
+	<!-- ################################################ -->
+	<complexType name="WindPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Vibration Preference type                       -->
+	<!-- ################################################ -->
+	<complexType name="VibrationPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Scent Preference type                           -->
+	<!-- ################################################ -->
+	<complexType name="ScentPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<sequence>
+					<element name="UnfavorableScent" type="mpeg7:termReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Fog Preference type                             -->
+	<!-- ################################################ -->
+	<complexType name="FogPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Spraying Preference type                         -->
+	<!-- ################################################ -->
+	<complexType name="SprayingPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<attribute name="sprayingType" type="mpeg7:termReferenceType"/>
+				<attribute name="maxIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Color Correction Preference Type  -->
+	<!-- ################################################ -->
+	<complexType name="ColorCorrectionPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType"/>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Tactile Preference type                          -->
+	<!-- ################################################ -->
+	<complexType name="TactilePrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<attribute name="maxTemperature" type="float" use="optional"/>
+				<attribute name="minTemperature" type="float" use="optional"/>
+				<attribute name="maxCurrent" type="float" use="optional"/>
+				<attribute name="maxVibration" type="float" use="optional"/>
+				<attribute name="tempUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="currentUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="vibrationUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Kinesthetic Preference type                                  -->
+	<!-- ################################################ -->
+	<complexType name="KinestheticPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<sequence>
+					<element name="MaxForce" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+					<element name="MaxTorque" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+				</sequence>
+				<attribute name="forceUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="torqueUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- RigidBodyMotion Preference type                      -->
+	<!-- ################################################ -->
+	<complexType name="RigidBodyMotionPrefType">
+		<complexContent>
+			<extension base="cidl:UserSensoryPreferenceBaseType">
+				<sequence maxOccurs="unbounded">
+					<element name="MotionPreference" type="sepv:MotionPreferenceBaseType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################   -->
+	<!--  Motion Preference base type		            -->
+	<!-- ################################################	-->
+	<complexType name="MotionPreferenceBaseType" abstract="true">
+		<attribute name="unfavor" type="boolean" use="optional" default="0"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Move Toward Preference type  	 			        -->
+	<!-- ################################################ -->
+	<complexType name="MoveTowardPreferenceType">
+		<complexContent>
+			<extension base="sepv:MotionPreferenceBaseType">
+				<attribute name="maxMoveDistance" type="unsignedInt" use="optional"/>
+				<attribute name="maxMoveSpeed" type="float" use="optional"/>
+				<attribute name="maxMoveAccel" type="float" use="optional"/>
+				<attribute name="distanceUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="accelUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Incline Preference type  	 			        -->
+	<!-- ################################################ -->
+	<complexType name="InclinePreferenceType">
+		<complexContent>
+			<extension base="sepv:MotionPreferenceBaseType">
+				<attribute name="maxRotationAngle" type="float" use="optional"/>
+				<attribute name="maxRotationSpeed" type="float" use="optional"/>
+				<attribute name="maxRotationAccel" type="float" use="optional"/>
+				<attribute name="angleUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="accelUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Wave Preference type  	 			        -->
+	<!-- ################################################ -->
+	<complexType name="WavePreferenceType">
+		<complexContent>
+			<extension base="sepv:MotionPreferenceBaseType">
+				<attribute name="maxWaveDistance" type="float" use="optional"/>
+				<attribute name="maxWaveSpeed" type="float" use="optional"/>
+				<attribute name="distanceUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Collide Preference type  	 			        -->
+	<!-- ################################################ -->
+	<complexType name="CollidePreferenceType">
+		<complexContent>
+			<extension base="sepv:MotionPreferenceBaseType">
+				<attribute name="maxCollideSpeed" type="float" use="optional"/>
+				<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Turn Preference type  	 			        -->
+	<!-- ################################################ -->
+	<complexType name="TurnPreferenceType">
+		<complexContent>
+			<extension base="sepv:MotionPreferenceBaseType">
+				<attribute name="maxTurnSpeed" type="float" use="optional"/>
+				<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Shake Preference type  	 			        -->
+	<!-- ################################################ -->
+	<complexType name="ShakePreferenceType">
+		<complexContent>
+			<extension base="sepv:MotionPreferenceBaseType">
+				<attribute name="maxShakeDistance" type="float" use="optional"/>
+				<attribute name="maxShakeSpeed" type="float" use="optional"/>
+				<attribute name="distanceUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Spin Preference type  	 			        -->
+	<!-- ################################################ -->
+	<complexType name="SpinPreferenceType">
+		<complexContent>
+			<extension base="sepv:MotionPreferenceBaseType">
+				<attribute name="maxSpinSpeed" type="float" use="optional"/>
+				<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

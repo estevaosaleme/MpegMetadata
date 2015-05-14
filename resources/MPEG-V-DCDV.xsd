@@ -1,0 +1,258 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:mpeg7="urn:mpeg:mpeg7:schema:2004" xmlns:mpegvct="urn:mpeg:mpeg-v:2010:01-CT-NS" xmlns:cidl="urn:mpeg:mpeg-v:2010:01-CIDL-NS" xmlns:dcdv="urn:mpeg:mpeg-v:2010:01-DCDV-NS" targetNamespace="urn:mpeg:mpeg-v:2010:01-DCDV-NS" elementFormDefault="qualified" attributeFormDefault="unqualified" version="ISO/IEC 23005-2" id="MPEG-V-DCDV.xsd">
+	<import namespace="urn:mpeg:mpeg7:schema:2004" schemaLocation="mpeg7-v2.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CIDL-NS" schemaLocation="MPEG-V-CIDL.xsd"/>
+	<import namespace="urn:mpeg:mpeg-v:2010:01-CT-NS" schemaLocation="MPEG-V-CT.xsd"/>
+	<!-- ################################################ -->
+	<!-- Light capability type						  -->
+	<!-- ################################################ -->
+	<complexType name="LightCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<sequence>
+					<element name="Color" type="mpegvct:colorType" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="maxIntensity" type="nonNegativeInteger" use="optional"/>
+				<attribute name="numOfLightLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Flash capability type                          -->
+	<!-- ################################################ -->
+	<complexType name="FlashCapabilityType">
+		<complexContent>
+			<extension base="dcdv:LightCapabilityType">
+				<attribute name="maxFrequency" type="positiveInteger" use="optional"/>
+				<attribute name="numOfFreqLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Heating capability type                    -->
+	<!-- ################################################ -->
+	<complexType name="HeatingCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="maxIntensity" type="nonNegativeInteger" use="optional"/>
+				<attribute name="minIntensity" type="integer" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Cooling capability type                    -->
+	<!-- ################################################ -->
+	<complexType name="CoolingCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="minIntensity" type="integer" use="optional"/>
+				<attribute name="maxIntensity" type="nonNegativeInteger" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!-- Wind type                                   -->
+	<!-- ################################################ -->
+	<complexType name="WindCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="maxWindSpeed" type="nonNegativeInteger" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Vibration capability type                              -->
+	<!-- ################################################ -->
+	<complexType name="VibrationCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="maxIntensity" type="nonNegativeInteger" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Scent capability type                              -->
+	<!-- ################################################ -->
+	<complexType name="ScentCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<sequence>
+					<element name="Scent" type="mpeg7:termReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+				<attribute name="maxIntensity" type="nonNegativeInteger" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Fog capability type                            -->
+	<!-- ################################################ -->
+	<complexType name="FogCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="maxIntensity" type="nonNegativeInteger" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Sprayer capability type                         -->
+	<!-- ################################################ -->
+	<complexType name="SprayerCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="sprayingType" type="mpeg7:termReferenceType"/>
+				<attribute name="maxIntensity" type="nonNegativeInteger" use="optional"/>
+				<attribute name="unit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Definition of Color Correction Type         -->
+	<!-- ################################################ -->
+	<complexType name="ColorCorrectionCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="flag" type="boolean" use="optional" default="false"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Tactile capability type                      -->
+	<!-- ################################################ -->
+	<complexType name="TactileCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<attribute name="intensityUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="maxValue" type="nonNegativeInteger" use="optional"/>
+				<attribute name="minValue" type="nonNegativeInteger" use="optional"/>
+				<attribute name="arraysizeX" type="integer"/>
+				<attribute name="arraysizeY" type="integer"/>
+				<attribute name="gapX" type="float" use="optional"/>
+				<attribute name="gapY" type="float" use="optional"/>
+				<attribute name="gapUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="maxUpdateRate" type="integer" use="optional"/>
+				<attribute name="updateRateUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="actuatorType" type="mpeg7:termReferenceType" use="optional"/>
+				<attribute name="numOfLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Kinesthetic capability type                                -->
+	<!-- ################################################ -->
+	<complexType name="KinestheticCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<sequence>
+					<element name="MaximumForce" type="mpegvct:Float3DVectorType"/>
+					<element name="MaximumTorque" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+					<element name="MaximumStiffness" type="mpegvct:Float3DVectorType" minOccurs="0"/>
+					<element name="DOF" type="dcdv:DOFType"/>
+					<element name="WorkSpace" type="dcdv:WorkSpaceType"/>
+				</sequence>
+				<attribute name="forceUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="torqueUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="stiffnessUnit" type="mpegvct:unitType" use="optional"/>
+				<attribute name="numOfForceLevels" type="nonNegativeInteger" use="optional"/>
+				<attribute name="numOfTorqueLevels" type="nonNegativeInteger" use="optional"/>
+				<attribute name="numOfStiffnessLevels" type="nonNegativeInteger" use="optional"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="DOFType">
+		<sequence>
+			<element name="Tx" type="boolean"/>
+			<element name="Ty" type="boolean"/>
+			<element name="Tz" type="boolean"/>
+			<element name="Rx" type="boolean"/>
+			<element name="Ry" type="boolean"/>
+			<element name="Rz" type="boolean"/>
+		</sequence>
+	</complexType>
+	<complexType name="WorkSpaceType">
+		<sequence>
+			<element name="Width" type="float"/>
+			<element name="Height" type="float"/>
+			<element name="Depth" type="float"/>
+			<element name="RotationX" type="float"/>
+			<element name="RotationY" type="float"/>
+			<element name="RotationZ" type="float"/>
+		</sequence>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Rigid Body Motion capability type                         -->
+	<!-- ################################################ -->
+	<complexType name="RigidBodyMotionCapabilityType">
+		<complexContent>
+			<extension base="cidl:SensoryDeviceCapabilityBaseType">
+				<sequence>
+					<element name="MoveTowardCapability" type="dcdv:MoveTowardCapabilityType" minOccurs="0"/>
+					<element name="InclineCapability" type="dcdv:InclineCapabilityType" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  MoveToward Capability type  	   			          -->
+	<!-- ################################################ -->
+	<complexType name="MoveTowardCapabilityType">
+		<attribute name="maxXDistance" type="float" use="optional"/>
+		<attribute name="maxYDistance" type="float" use="optional"/>
+		<attribute name="maxZDistance" type="float" use="optional"/>
+		<attribute name="distanceUnit" type="mpegvct:unitType" use="optional"/>
+		<attribute name="maxXSpeed" type="float" use="optional"/>
+		<attribute name="maxYSpeed" type="float" use="optional"/>
+		<attribute name="maxZSpeed" type="float" use="optional"/>
+		<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+		<attribute name="maxXAccel" type="float" use="optional"/>
+		<attribute name="maxYAccel" type="float" use="optional"/>
+		<attribute name="maxZAccel" type="float" use="optional"/>
+		<attribute name="accelUnit" type="mpegvct:unitType" use="optional"/>
+		<attribute name="xDistanceLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="yDistanceLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="zDistanceLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="xSpeedLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="ySpeedLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="zSpeedLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="xAccelLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="yAccelLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="zAccelLevels" type="nonNegativeInteger" use="optional"/>
+	</complexType>
+	<!-- ################################################ -->
+	<!--  Incline Capability type  				       -->
+	<!-- ################################################ -->
+	<complexType name="InclineCapabilityType">
+		<attribute name="maxPitchAngle" type="mpegvct:InclineAngleType" use="optional"/>
+		<attribute name="maxYawAngle" type="mpegvct:InclineAngleType" use="optional"/>
+		<attribute name="maxRollAngle" type="mpegvct:InclineAngleType" use="optional"/>
+		<attribute name="maxPitchSpeed" type="float" use="optional"/>
+		<attribute name="maxYawSpeed" type="float" use="optional"/>
+		<attribute name="maxRollSpeed" type="float" use="optional"/>
+		<attribute name="speedUnit" type="mpegvct:unitType" use="optional"/>
+		<attribute name="maxPitchAccel" type="float" use="optional"/>
+		<attribute name="maxYawAccel" type="float" use="optional"/>
+		<attribute name="maxRollAccel" type="float" use="optional"/>
+		<attribute name="accelUnit" type="mpegvct:unitType" use="optional"/>
+		<attribute name="pitchAngleLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="yawAngleLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="rollAngleLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="pitchSpeedLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="yawSpeedLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="rollSpeedLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="pitchAccelLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="yawAccelLevels" type="nonNegativeInteger" use="optional"/>
+		<attribute name="rollAccelLevels" type="nonNegativeInteger" use="optional"/>
+	</complexType>
+</schema>
